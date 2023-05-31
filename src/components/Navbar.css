@@ -1,0 +1,22 @@
+.navbar_ {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #334756;
+  height: 7vh;
+  width: 95%;
+  inset: 0% 0% 0% 5%;
+  color: white;
+  z-index: 9;
+}
+
+.link_ {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white
+}

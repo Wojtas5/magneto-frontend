@@ -1,0 +1,35 @@
+.page_charts {
+    height: 100vh;
+    background-color: #f3dfb0;
+    position: absolute;
+    width: 100%
+}
+
+.tabs {
+    background-color: #ffffff;
+    border: 3px solid #e4a724 !important;
+    border-radius: 5px;
+    width: 34%
+}
+
+.tab {
+    background-color: #ffffff;
+    border: 3px solid #e4a724;
+    padding: 1rem;
+}
+
+.chartdiv {
+    width: 85vw;
+}
+
+.chartscontext {
+    position: absolute;
+    inset: 400px 0% 0% 5%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 80%;
+    height:20%;
+    margin: 1rem;
+    padding: 2rem;
+}
