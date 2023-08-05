@@ -18,47 +18,50 @@ const Chart = ({ csv_filename }: ChartProps) => {
 
     function ReadRemoteFile() {
         const { readRemoteFile } = usePapaParse();
-        const folder = csv_filename.startsWith("measurements_") ? "measurements/" : "calibrations/";
-        const url = "http://localhost:9000/magneto/" + folder + csv_filename;
 
-        console.log("Test: " + csv_filename);
+        if (csv_filename) {
+            const folder = csv_filename.startsWith("measurements_") ? "measurements/" : "calibrations/";
+            const url = "http://localhost:9000/magneto/" + folder + csv_filename;
 
-        const handleReadRemoteFile = () => {
-            try {
-                readRemoteFile(url, {
-                    complete: (results) => {
-                        const csvdata: string[][] = results.data.map((innerArray: unknown) =>
-                            (innerArray as unknown[]).map((item: unknown) => String(item))
-                        );
+            console.log("Test: " + csv_filename);
 
-                        let header = csvdata[0];
-                        let series_array = [];
+            const handleReadRemoteFile = () => {
+                try {
+                    readRemoteFile(url, {
+                        complete: (results) => {
+                            const csvdata: string[][] = results.data.map((innerArray: unknown) =>
+                                (innerArray as unknown[]).map((item: unknown) => String(item))
+                            );
 
-                        for (let i = 1; i < header.length; i++) {
-                            let series: Record<string, number>[] = [];
+                            let header = csvdata[0];
+                            let series_array = [];
 
-                            for (let j = 1; j < csvdata.length - 1; j++) {
-                                const entry: Record<string, number> = {};
-                                const row_data: string[] = csvdata[j];
+                            for (let i = 1; i < header.length; i++) {
+                                let series: Record<string, number>[] = [];
 
-                                entry[header[0]] = Number(row_data[0]);
-                                entry[header[i]] = Number(row_data[i]);
-                                series.push(entry);
+                                for (let j = 1; j < csvdata.length - 1; j++) {
+                                    const entry: Record<string, number> = {};
+                                    const row_data: string[] = csvdata[j];
+
+                                    entry[header[0]] = Number(row_data[0]);
+                                    entry[header[i]] = Number(row_data[i]);
+                                    series.push(entry);
+                                }
+
+                                series_array.push(series);
                             }
 
-                            series_array.push(series);
-                        }
+                            setData(series_array);
+                        },
+                        download: true
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            };
 
-                        setData(series_array);
-                    },
-                    download: true
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        return handleReadRemoteFile();
+            return handleReadRemoteFile();
+        }
     }
 
     useEffect(() => {
