@@ -22,7 +22,7 @@ const Sidebar = () => {
             <nav>
                 <ul className={active ? 'ul-item_' : 'ul-item_ oicon'}>
                     <li>
-                        <Link className='link_' to='/position'>
+                        <Link className='link_' to='/'>
                             <BiMap className='icon_' />
                             <div className='text_'>Position</div>
                         </Link>
